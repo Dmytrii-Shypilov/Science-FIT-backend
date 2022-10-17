@@ -5,6 +5,7 @@ require("dotenv").config()
 const exerciseRouter = require('./routes/exercises')
 const usersRouter = require('./routes/users')
 const trainingsRouter = require('./routes/trainings')
+const scheduleRouter = require('./routes/schedule')
 
 const app = express()
 
@@ -12,9 +13,10 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/exercises', exerciseRouter)
+
 app.use('/users', usersRouter)
 app.use('/trainings', trainingsRouter)
-// app.use('/schedule')
+app.use('/schedules', scheduleRouter)
 
 
 app.use((req, res) => {

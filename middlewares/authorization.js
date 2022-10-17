@@ -8,19 +8,19 @@ const authorize = async (req, res, next) => {
         const {authorization = ""} = req.headers;
         const [bearer, token] = authorization.split(" ");
         const {id} = jwt.verify(token, SECRET_KEY);  
-     
         if(bearer !== "Bearer") {
             throw createError(401, "Not authorized")
         }
         try {
             const {id} = jwt.verify(token, SECRET_KEY);
             const user = await User.findById(id);
-           
+      
             if(!user || !user.token || user.token !== token) {
-                throw createError(401, "Not authorized ssss")
+                throw createError(401, "Not authorized")
             }
            
             req.user = user;
+            console.log(user, "NEW USER AUTH")
             next()
         } catch (error) {
             throw createError(401, "Not authorized")

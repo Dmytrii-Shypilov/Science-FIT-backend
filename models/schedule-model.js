@@ -1,8 +1,12 @@
 const { Schema, model } = require("mongoose");
 
-const trainingSchema = Schema(
+const scheduleSchema = Schema(
   {
     owner: {
+      type: String,
+      required: true,
+    },
+    date: {
       type: String,
       required: true,
     },
@@ -10,17 +14,13 @@ const trainingSchema = Schema(
       type: String,
       required: true,
     },
-    exercises: {
-      type: Array,
-      required: true,
-    },
-    notes: {
+    time: {
       type: String,
-      default: "",
+      required: true,
     },
   },
   { versionKey: false }
 );
 
-const Training = model('training', trainingSchema)
-module.exports = Training
+const Schedule = model("schedule", scheduleSchema);
+module.exports = Schedule;
