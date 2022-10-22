@@ -22,7 +22,7 @@ const signUp = async (req, res, next) => {
     });
 
     const {_id} = await User.findOne({email})
-    const token = jwt.sign({id: _id}, SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({id: _id}, SECRET_KEY, {expiresIn: "1h"});
     await User.findByIdAndUpdate({_id}, {token})
   
     res.status(201).json({
