@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const createError = require("../helpers/createError");
+const userRegistrationSchema = require('../joi/usersJoiSchema')
 const User = require("../models/user-model");
 const { SECRET_KEY } = process.env;
 
@@ -8,8 +9,13 @@ const { SECRET_KEY } = process.env;
 
 const signUp = async (req, res, next) => {
   try {
+    const {error} = userRegistrationSchema.validate(req.body)
+    if (error) {
+      throw createError(400, error.message);
+    }
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+    
     if (user) {
       throw createError(409, "User with such email already exists");
     }
@@ -37,6 +43,10 @@ const signUp = async (req, res, next) => {
 
 const signInUser = async (req, res, next) => {
   try {
+    const {error} = userRegistrationSchema.validate(req.body)
+    if (error) {
+      throw createError(400, error.message);
+    }
     const {password, email} = req.body
     const user = await User.findOne({email})
   if (!user) {

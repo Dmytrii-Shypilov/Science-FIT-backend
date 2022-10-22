@@ -40,9 +40,7 @@ const deleteScheduleItem = async (req, res, next) => {
 }
 
 const deleteMultipleScheduleItems = async (req, res, next) => {
-  console.log(req.params, 'PRAAMMAMMMMS ffgfgfgfgfgfgfgfgf')
   try {
-    console.log(req.params, 'PRAAMMAMMMMS')
     const {name} = req.params
     const itemName = name.split('-').join(' ')
     await Schedule.deleteMany({name: itemName})

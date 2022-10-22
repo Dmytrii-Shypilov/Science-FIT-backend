@@ -20,12 +20,10 @@ const authorize = async (req, res, next) => {
             }
            
             req.user = user;
-            console.log(user, "NEW USER AUTH")
             next()
         } catch (error) {
             throw createError(401, "Not authorized")
-        }
-       
+        }   
       
     } catch (error) {
         next(error);
